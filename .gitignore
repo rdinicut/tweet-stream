@@ -1,0 +1,23 @@
+# dependency cache
+node_modules
+
+# build
+static/bundle.js
+build/
+
+# logs
+npm-debug.log
+
+# editor config
+.idea
+*.iml
+
+# OS files
+*.DS_Store
+
+# code coverage
+coverage
+
+# Local ENV
+src/deployments/local.json
+src/deployments/local-ganache.json
