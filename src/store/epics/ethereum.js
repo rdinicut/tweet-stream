@@ -19,7 +19,6 @@ const connect = (action$, store) => {
 
         let {web3} = window;
         Contracts.setNetwork(action.networkId);
-        console.log(Contracts.TweetStream().address);
         return Observable.forkJoin(
             fromWeb3Callback(cb => web3.eth.getCode(Contracts.TweetStream().address, cb))
         ).map(contracts => {

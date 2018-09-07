@@ -1,6 +1,5 @@
 import * as tweetStreamConfig from '../contracts/TweetStream.json';
 
-
 let TweetStream = null;
 
 let selectedNetwork = null;

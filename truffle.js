@@ -1,6 +1,5 @@
 var path = require('path');
 module.exports = {
-    build_directory: path.join(__dirname, "src/"),
     contracts_build_directory: path.join(__dirname, "src/contracts/"),
     networks: {
       development: {

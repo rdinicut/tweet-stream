@@ -20,12 +20,12 @@ contract TweetStream {
         emit newUser(name,msg.sender);
     }
 
-    function isSenderRegistered() public view returns (bool){
-        return users[msg.sender] != 0x0;
+    function getUserName(address account) public view returns (bytes32 name){
+        return users[account];
     }
 
     function tweet(bytes32 message,bytes8 mood) public {
-        require(isSenderRegistered());
+        require(getUserName(msg.sender) != 0x0);
         tweets.push(Tweet(message,mood,msg.sender));
         emit newTweet(message,mood,users[msg.sender]);
     }

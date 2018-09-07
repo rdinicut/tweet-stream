@@ -9,28 +9,27 @@ export const createAccountEpic = () => {
     return combineEpics(accountIsRegisterd,register);
 };
 
+const {web3} = window;
 
 const accountIsRegisterd = (action$) => {
     return action$.ofType(ACCOUNT_CHANGED)
-        .switchMap( action => {
-            return fromWeb3Callback(cb => Contracts.TweetStream().isSenderRegistered(cb))
-
-        }).map( result => {
-            console.log(result);
-            return accountRegistered(result);
-        } )
+        .mergeMap( action => {
+            return fromWeb3Callback(cb => Contracts.TweetStream().getUserName(action.address,cb)).map( result => {
+                return accountRegistered(web3.toAscii(result).replace(/\u0000/g, ''));
+            })
+        })
 }
 
 
 const register = (action$) => {
     return action$.ofType(ACCOUNT_REGISTER)
-        .switchMap(action => {
+        .mergeMap(action => {
             return fromWeb3Callback(cb => Contracts.TweetStream().register(action.name, cb))
-                .switchMap(() => {
+                .mergeMap(() => {
                     return fromWeb3Callback(
                         cb => Contracts.TweetStream().newUser().watch(cb)
-                    )
-                }).map((result) => accountRegistered(true))
+                    ).map(evt => web3.toAscii(evt.args.name).replace(/\u0000/g, ''))
+                }).map((name) => accountRegistered(name))
                 .catch(e => Observable.of(accountRegistrationFailed(e)))
         })
 }

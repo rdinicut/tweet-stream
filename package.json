@@ -2,7 +2,7 @@
   "name": "react-dapp-seed",
   "version": "0.1.0",
   "scripts": {
-    "start-react": "PORT=3006 react-scripts start",
+    "start-react": "PORT=3007 react-scripts start",
     "start-ganache": "ganache-cli --gasLimit 4712388 --networkId 1234567 --blockTime=0.1 -p 8545 -m \"tumble gas embody bright agree pony smoke laptop index sight shallow hungry\"",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom --coverage ",

@@ -18,10 +18,10 @@ export const registerAccount = (name) => {
     }
 }
 
-export const accountRegistered = (registered) => {
+export const accountRegistered = (name) => {
     return {
         type:ACCOUNT_REGISTERED,
-        registered
+        name
     }
 }
 

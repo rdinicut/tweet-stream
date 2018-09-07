@@ -21,9 +21,10 @@ const submitTweet = (action$) => {
         .switchMap(action => {
             return fromWeb3Callback(cb => Contracts.TweetStream().tweet(action.message, action.mood, cb))
                 .switchMap(() => {
-                    return fromWeb3Callback(
-                        cb => Contracts.TweetStream().newTweet().watch(cb)
-                    )
+                    return fromWeb3Callback(cb => Contracts.TweetStream().newTweet({
+                            message: action.message,
+                            mood: action.mood
+                        }).watch(cb))
                 }).map(tweetSubmited)
                 .catch(e => Observable.of(tweetFailed(e)))
         })

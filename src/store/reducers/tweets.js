@@ -39,12 +39,13 @@ export const tweetsReducer = (state = initialState, action) => {
             return {
                 ...state,
                 items: [
-                    ...state.items,
                     {
                         message: action.message,
                         mood: action.mood,
                         name: action.name
-                    }
+                    },
+                    ...state.items
+
                 ]
             };
         case TWEETS_LOAD_ALL:
@@ -58,8 +59,7 @@ export const tweetsReducer = (state = initialState, action) => {
                 ...state,
                 loadingAllTweets: false,
                 items: [
-                    ...action.items,
-                    ...state.items,
+                    ...action.items.reverse(),
                 ]
             };
         case TWEETS_LOAD_ALL_FAILED:

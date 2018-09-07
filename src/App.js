@@ -10,8 +10,7 @@ import {Provider} from "react-redux";
 import {changeAccount} from "./store/actions/account";
 import Contracts from "./services/contracts";
 import {connectToContracts} from "./store/actions/ethereum";
-import {Grommet} from "grommet";
-import Register from "./pages/Register";
+import {Box, Grommet} from "grommet";
 import {PageNotFound} from "./pages/PageNotFound";
 import {DappRequirements} from "react-dapp-requirements";
 import {AccountLoadingScreen, AccountUnvailableScreen} from "./components/DappRequirementsScreens/CheckAccountScreens";
@@ -21,6 +20,7 @@ import {
     NetworkNotSupportedScreen
 } from "./components/DappRequirementsScreens/CheckForNetworkScreens";
 import {BrowserUnsupportedScreen} from "./components/DappRequirementsScreens/CheckForBrowserScreen";
+import {HomePage} from "./pages/HomePage";
 
 const history = createHistory();
 
@@ -49,34 +49,36 @@ export default class App extends Component {
         return (
             <Provider store={store}>
                 <Grommet full={true}>
-                    <ConnectedRouter history={history}>
-                        <Switch>
-                            {/* routes that not require  metamask or other dapp requirements */}
-                            <Route exact path="/" render={() => {
-                                return (
-                                    <DappRequirements
-                                        Web3UnvailableComponent={Web3UnvailableScreen}
-                                        BrowserUnsupportedComponent={BrowserUnsupportedScreen}
-                                        AccountLoadingComponent={AccountLoadingScreen}
-                                        AccountUnvailableComponent={AccountUnvailableScreen}
-                                        NetworkNotSupportedComponent={NetworkNotSupportedScreen}
-                                        NetworkLoadingComponent={NetworkLoadingScreen}
-                                        NetworkNotFoundComponent={NetworkNotFoundScreen}
-                                        supportedNetworks={Contracts.getSupportedNetworks()}
-                                        onNetworkIdReceived={this.onNetworkIdReceived}
-                                        onAccountChange={this.onAccountChange}
-                                    >
-                                        <Switch>
-                                            {/* routes that require metamask */}
-                                            <Route exact path="/" component={Register}/>
-                                        </Switch>
-                                    </DappRequirements>
-                                )
-                            }}/>
-                            <Route path="*" component={PageNotFound}/>
-                        </Switch>
+                    <Box background="light-1" fill="true">
+                        <ConnectedRouter history={history}>
+                            <Switch>
+                                {/* routes that not require  metamask or other dapp requirements */}
+                                <Route exact path="/" render={() => {
+                                    return (
+                                        <DappRequirements
+                                            Web3UnvailableComponent={Web3UnvailableScreen}
+                                            BrowserUnsupportedComponent={BrowserUnsupportedScreen}
+                                            AccountLoadingComponent={AccountLoadingScreen}
+                                            AccountUnvailableComponent={AccountUnvailableScreen}
+                                            NetworkNotSupportedComponent={NetworkNotSupportedScreen}
+                                            NetworkLoadingComponent={NetworkLoadingScreen}
+                                            NetworkNotFoundComponent={NetworkNotFoundScreen}
+                                            supportedNetworks={Contracts.getSupportedNetworks()}
+                                            onNetworkIdReceived={this.onNetworkIdReceived}
+                                            onAccountChange={this.onAccountChange}
+                                        >
+                                            <Switch>
+                                                {/* routes that require metamask */}
+                                                <Route exact path="/" component={HomePage}/>
+                                            </Switch>
+                                        </DappRequirements>
+                                    )
+                                }}/>
+                                <Route path="*" component={PageNotFound}/>
+                            </Switch>
 
-                    </ConnectedRouter>
+                        </ConnectedRouter>
+                    </Box>
                 </Grommet>
             </Provider>
 

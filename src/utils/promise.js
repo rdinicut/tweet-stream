@@ -30,7 +30,6 @@ export const fromWeb3Callback = (callback) => {
                 observer.error(error)
             }
             observer.next(result);
-            observer.complete();
         });
     })
 }

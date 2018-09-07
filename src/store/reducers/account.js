@@ -23,15 +23,14 @@ export const accountReducer = (state = initialState, action) => {
         case ACCOUNT_REGISTER:
             return {
                 ...state,
-                name: action.name,
                 loading: true
             }
         case ACCOUNT_REGISTERED:
-            console.log(action)
             return {
                 ...state,
                 loading:false,
-                registered: action.registered
+                name:action.name,
+                registered: action.name !== ''
             }
         case ACCOUNT_REGISTRATION_FAILED:
             return {
